@@ -1,0 +1,28 @@
+= NFR Template Name
+
+Retention policy for PII sensitive fields is 30 days
+
+":keywords: add keywords based on convention"
+
+== Meta Data
+
+{keywords}
+
+== Description
+
+After that the values of the PII fields are replaced with a PII_retention_expired  placeholder.
+
+== Example
+* Retrieving a Call detail records older than 30 days, must show PII placeholder is PSTN number field.
+
+== Source
+
+== Related rules
+
+== Ilities Family
+
+_Data retention_, _Privacy_
+
+== Labels
+
+_domain_

@@ -1,0 +1,61 @@
+@startuml
+skinparam default {
+    FontName SansSerif
+    FontSize 17
+    FontColor #007aff
+    FontStyle bold
+}
+
+skinparam sequence {
+    ArrowColor #77D245
+    ActorBorderColor #194A7D
+    ActorBackgroundColor #194A7D
+}
+
+skinparam interface {
+    BorderColor #194A7D
+    BackgroundColor #194A7D
+}
+
+!define public_expose red
+!define encrypted red
+!define unencrypted #77D245
+!define user_plane bold
+!define control_plane dashed
+!define mng_plane dotted
+skinparam backgroundColor transparent
+person architect
+person contributor
+folder arch_metadata_git
+note left
+Contains NFR and Container matrices
+Main branch is approved changes
+MR is ongoing evaluated
+end note
+queue gitlab_pipeline
+database query_db
+note left
+Supports custom queries
+end note
+rectangle confluence
+note left
+Contains browsable content.
+Mainly static, and predefined reports
+Only approved/main changes published
+end note
+person browse_user
+person query_user
+
+architect --> arch_metadata_git: nfr, container_record
+contributor --> arch_metadata_git: open MR
+arch_metadata_git --> gitlab_pipeline: trigger
+gitlab_pipeline --> query_db: update
+gitlab_pipeline --> query_db: generate report
+query_user --> query_db: query
+browse_user --> confluence: browse
+gitlab_pipeline --> confluence: publish
+
+
+
+
+@enduml

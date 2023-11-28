@@ -1,0 +1,24 @@
+@startuml
+
+class NFR {
+    id: String
+    keywords: Array
+}
+
+class ContainerRecord {
+    id: String
+    keywords: Array
+    nfrCompliance: Array
+}
+
+entity NfrContainerCompliance {
+    nfrId: String
+    containerId: String
+    applicability: String
+    implementation: String
+}
+
+NFR <-- NfrContainerCompliance
+ContainerRecord o-- NfrContainerCompliance
+
+@enduml

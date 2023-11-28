@@ -1,0 +1,227 @@
+=  Architecture
+
+
+== Description
+This repository will track the decisions and modifications introduce in the NG Platform solution at the architecture level. This includes a matrix of containers and corresponding technical requirements.
+
+[plantuml,"aac.pnmg", png]
+----
+include::aac.plantuml[]
+----
+
+
+== Visuals
+All the resources in this repository are linked to make the content browsable. A good place to start is the System Level 2 diagram
+<<./architecture/system_context_level_1.adoc#, System Level 1>>
+
+== Installation
+No installation required. This repo is based on simple Asciidoc files and plantuml diagrams.
+
+This is the running plantuml/graphviz version used for rendering
+[plantuml,"test.png",png]
+----
+@startuml
+testdot
+@enduml
+----
+
+Additional plantuml tools used:
+
+* https://confluence-publisher.atlassian.net/wiki/spaces/CPD/overview
+* https://plantuml.com/deployment-diagram
+* https://github.com/plantuml-stdlib/C4-PlantUML
+* https://github.com/awslabs/aws-icons-for-plantuml
+
+== Diagram Convention
+
+* For Control Plane links use "-[#control_plane]->" line style dashed
+* For User Plane links use "-[#user_plane]->" line style bold
+* For Control Plane links use "-[#mng_plane]->" line style dotted
+* For encrypted links use "-[#encrypted]->" red color
+* For unencrypted links use "-[#green]->" green color
+* For synchronous links use "-->>" notation
+* For asynchronous links use "-->" notation
+* Links should use a meaningful label describing the main role of the link
+* Links should end with "[<protocol>]" eg: HTTP, SS7, Diameter, gRPC..
+* Public exposed containers will be highlighted with red line covering "#line:public_expose". this is mapped to red color
+* clustering mode active/active "AA" active/passive "AP"
+* Clustering escalation: static "S", dynamic "D"
+* Number of instances: min-max
+* Number of AvailabilityZones: N
+* Number of Regions: N
+
+== Usage
+The organization manages architecture through 4 different resources:
+
+* Diagrams: Provided <<./architecture/system_context_level_1.adoc#, System Level 1>> and Level 2 diagrams
+* <<./architecture/nfrs#, NFRs>>: A formal definition of tech requirements that will be linked to containers later.
+* Container Description: Contains basic metadata about the container, and the NFR compliance matrix.
+* ADRs: The log of ADR records as defined in [ADR](https://github.com/joelparkerhenderson/architecture_decision_record)
+
+
+== NFR Meta Data
+Each NFR is defined by using a set of metadata which establish the template
+|===
+| Name |Values | Explanation
+| Level | MANDATORY, HIGHLY_RECOMMENDED, OPTIONAL | This is the requirement level
+| Risk | HIGH, MEDIUM, LOW | This is the risk associated to not complying with the NFR
+| Priority | HIGH, MEDIUM, LOW | This is the priority to implement the NFR in relation to other NFRs. This is useful for corresponding component team to plan their backlog for NFR compliance
+| Domain | SECURITY, OBSERVABILITY, PERFORMANCE, AVAILABILITY,MAINTAINABILITY, PORTABILITY, RELEASE, SCALABILITY | NFR are classified in different sets called domains
+|===
+
+
+== Container Meta Data
+Container is anything that needs to be running in order to implement a component. This includes data stores, balancers, gateways, and service logic containers. Low level
+infrastructure such as VPC, Transit Gateway, NATs gateway are not included as part of this repository. Each container is defined by using a set of metadata which establish the template
+
+|===
+| Name | Values | Explanation
+| Role | BALANCER GATEWAY SERVICE_LOGIC DATA_STORE | It helps to understand the main function of the container
+| Vendor | INHOUSE AWS XXX| It tells whether the Container is delivered either in-house, or AWS, or another third party.
+| Infra Ownership | FULLY_MANAGED OWNED | It tells whether the container infrastructure is provided in-house hence OWNED, or is provided by a third party FULlY_MANAGED
+| Public exposure | INTERNET_EXPOSURE GRX_IPX_EXPOSURE NO_EXPOSURE | It tells whether the container is exposed to some external network. This is a hint to evaluate NFR applicability
+| Deployment Region| CENTRAL LOCAL_BREAKOUT | It tells whether the component is designed to be deployed in the central EU region, or replicated in different regions for Local Breakout purposes
+| Module | 1CMP 1CORE | Identifies which module within the NG platform solution this container belongs to
+| Component | SDM TC PGW RSP SMSC OSS BSS EA NCE | Identifies which component within the NG platform solution this container belongs to
+|===
+
+
+== ADR Meta Data
+The Architecture Decision Record helps to track the changes into the NG Platform architecture.
+
+|===
+| Name |  Explanation
+| Title | short present tense imperative phrase, less than 50 characters
+| Context | what is the issue that we're seeing that is motivating this decision or change
+| Decision | what is the change that we're actually proposing or doing
+| Consequences | what becomes easier or more difficult to do because of this change
+|===
+
+
+== Keyword convention
+
+In order to facilitate searching the content the asciidoc documents are marked with special labels based on the template metadata. Find the table below explaining available labels:
+
+
+NFR Record Table
+|===
+| Label  | Explanation
+| NFR_REQ | Allows filtering the search to NFR records only
+| NFR_LEVEL_<level> | Allows filtering the NFRs under a given level
+| NFR_RISK_<risk> | Allows filtering the NFRs under a given risk
+| NFR_PRIORITY_<priority> | Allows filtering the NFRs under a given priority
+| NFR_DOMAIN_<domain> | Allows filtering the NFRs under a given domain
+|===
+
+Container Record Table
+|===
+| Label  | Explanation
+| CONTAINER_RECORD | Allows filtering the search to Container records only
+| MODULE_<module> | Allows filtering the Containers under a given module
+| COMPONENT_<component> | Allows filtering the Containers under a given risk
+| ROLE_<role> | Allows filtering the Containers under a given role
+| VENDOR_<vendor> | Allows filtering the Containers under a given domain
+| EXPOSURE_<exposure> | Allows filtering the Containers under a given exposure
+| REGION_<dep region> | Allows filtering the Containers under a given region
+| INFRA_<infra> | Allows filtering the Containers under a given infra model
+|===
+
+ADR Record Table
+|===
+| Label  | Explanation
+| ADR_RECORD | Allows filtering the search to ADR records only
+| MODULE_<module> | Allows filtering the ADR impacting a given module
+| COMPONENT_<component> | Allows filtering ADR impacting a given component
+|===
+
+
+
+== Querying the repo
+Thanks to Confluence advanced search we can use the repo to make queries. Find below a couple of useful
+queries. Notice Confluence is turning the keywords into lowercase.
+
+* link:https://conf.atlassian.net/wiki/search?text=NFR-01&spaces=1CP&ancestor=3924852831&type=page&labels=component_sdm%2Ccontainer_record[Search NFR-01 Availability family compliance for SDM containers]
+* link:https://conf.atlassian.net/wiki/search?text=Description&spaces=1CP&ancestor=3924852831&type=page&labels=exposure_internet%2Cmodule_1cmp[Search containers with public exposure under module 1CMP]
+* link:https://conf.atlassian.net/wiki/search?spaces=1CP&ancestor=3924852831&type=page&labels=vendor_aws%2Ccomponent_sdm[Search containers delivered by AWS under component SDM]
+
+You can freely combine text and labels with generic url:
+----
+https://conf.atlassian.net/wiki/search?text=<free text>&spaces=1CP&ancestor=3924852831&type=page&labels=<label> <label>
+----
+
+== Querying the DB
+From version 1.12.8 each commit to main will extract medatadata about nfrs and containers and push it to a DB (AWS DocumentDB/MongoDB). Per component Reports will be generated based on queries. In addition, the DB is available to support any query at any time. The API is reachable at "https://rwvqk6nbb1.execute-api.eu-central-1.amazonaws.com/play/ngarch/<version>/nfrs|containers". This API is based on this link:https://aws.amazon.com/blogs/database/creating-a-rest-api-for-amazon-documentdb-with-mongodb-compatibility-with-amazon-api-gateway-and-aws-lambda/[AWS article]
+
+There are two collections available called "nfrs" and "containers" correspondingly.
+NFRs collection document looks like this
+[source,json]
+----
+{
+"id":"NFR-01-0001",
+"title":"Recoverability",
+"keywords":["NFR_REQ","NFR_LEVEL_MANDATORY","NFR_RISK_HIGH","NFR_PRIORITY_HIGH","NFR_DOMAIN_AVAILABILITY","MILESTONE_FUT"]
+}
+----
+
+Containers collection document looks like this:
+[source,json]
+----
+{
+"id":"cp_gtp_lb",
+"keywords":["CONTAINER_RECORD","MODULE_1CORE","COMPONENT_PGW","ROLE_BALANCER","VENDOR_INHOUSE","EXPOSURE_NONE","REGION_CENTRAL","INFRA_OWNED"],
+"nfrs" : [
+{
+"nfr":"NFR-01-0001",
+"applicability":"APPLICABLE",
+"implementation":"IMPLEMENTED"
+}
+]}
+----
+
+The collections allow GET operation to perform queries with given query params:
+
+* "filter": mongodb expression as in 'filter={"keywords": {"$all":["COMPONENT_PGW"]}}'
+* "projection": mongodb expresion a in 'projection={"_id": 0, "title": 1}'
+
+Containers collection has a special GET mode to do join queries with NFRs collection:
+
+* "filter": mongodb expression as in 'filter={"keywords": {"$all":["COMPONENT_PGW"]}}'. Applied first thing in aggregate pipeline
+* "nfr_filter" mongodb expression as in 'nfr_filter={"$and" : [{"nfrRelated.keywords": {"$all":["NFR_LEVEL_MANDATORY", "MILESTONE_FUT"]}}, {"nfrs.applicability" : "APPLICABLE"}]}' . Applied right after the nfr lookup join.
+* "group": mongodb field name to use as group. Example 'group=nfrs.applicability'. Special value "NONE" will disable grouping
+
+
+
+Following is a list of examples:
++* link:https://rwvqk6nbb1.execute-api.eu-central-1.amazonaws.com/play/ngarch/latest/containers?group=NONE&aggregate=true&filter=%7B%22keywords%22%3A%20%7B%22%24all%22%3A%5B%22COMPONENT_SDM%22%5D%7D%7D&nfr_filter=%7B%22nfrRelated.id%22%3A%22NFR-01-0001%22%7D[Search containers implementation status for NFR-01-0001 under component SDM]
+
+== AWS Infrastructure
+
+== Support
+Contact Enterprise Architect team
+
+== Roadmap
+* Baseline current platform
+
+== Contributing
+All the content is linked using asciidoc anchors with relative paths, to allow navigation throughout the content.Please always try to
+introduce as much linking as possible:
+
+* Writing NFR
+There is a <<./architecture/nfrs/nfr_template.adoc#, NFR template>> you may use to fork new requirements. The ID just follows an easy convention TR-<seqNum>.
+* Writing Container Matrices
+There is a <<./architecture/container_template.adoc#, Container Template>> you may use to fork new containers. The file should be named with container id.
+Containers should provide links ,.,mto corresponding diagrams and requirements.
+* Creating Diagrams45use plantuml. Please link to other resources correspondingly. In particular diagrams should link to container resources.
+* ADR records
+We use [ADR](https://github.com/joelparkerhenderson/architecture_decision_record). Please link to other resources correspondingly.
+
+Any change in architecture should be introduced through regular Git workflow, using separate branch, and PR. Only when PR is approved, the merge
+into master will happen.
+
+== Glossary
+link:https://conf.atlassian.net/wiki/spaces/TEC/pages/1067286592/Abbreviations+Terms[Confluence Glossary]
+
+== Project status
+* Baseline of current solution
+
+

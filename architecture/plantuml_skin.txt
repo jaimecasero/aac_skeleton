@@ -1,0 +1,34 @@
+skinparam default {
+    FontName SansSerif
+    FontSize 17
+    FontColor #007aff
+    FontStyle bold
+}
+
+skinparam sequence {
+    ArrowColor #77D245
+    ActorBorderColor #194A7D
+    ActorBackgroundColor #194A7D
+}
+
+skinparam interface {
+    BorderColor #194A7D
+    BackgroundColor #194A7D
+}
+
+!define public_expose red
+!define encrypted red
+!define unencrypted #77D245
+!define user_plane bold
+!define control_plane dashed
+!define mng_plane dotted
+
+legend bottom right
+    Line Convention:
+    PUBLIC EXPOSE public_expose
+    ENCRYPTED encrypted
+    UNENCRYPTED green
+    USER PLANE user_plane
+    CONTROL PLANE control_plane
+    MNG PLANE mng_plane
+end legend

@@ -1,0 +1,92 @@
+= container id
+
+:keywords: CONTAINER_RECORD, MODULE_1CORE, COMPONENT_SMSC, ROLE_GATEWAY, VENDOR_6D, EXPOSURE_NONE, REGION_CENTRAL, INFRA_OWNED
+
+== Meta Data
+
+{keywords}
+
+
+== Description
+
+short explanation about container role in the solution
+
+== Container Tech-Requirements
+
+|===
+| Req  | Requirement Lvl | Applicability | Impl Status | EnforcedBy
+|<<./nfrs/NFR-01-0001.adoc#,NFR-01-0001 - Recoverability>>| MANDATORY | ----- | ----- | -----
+|<<./nfrs/NFR-01-0002.adoc#,NFR-01-0002 - Active Active Geo-Redundancy>>| MANDATORY | ----- | ----- | -----
+|<<./nfrs/NFR-01-0003.adoc#,NFR-01-0003 - Canary Deployment>>| OPTIONAL | ----- | ----- | -----
+|<<./nfrs/NFR-01-0004.adoc#,NFR-01-0004 - Automatic Rollback>>| OPTIONAL | ----- | ----- | -----
+|<<./nfrs/NFR-01-0005.adoc#,NFR-01-0005 - Auto Healing>>| HIGHLY_RECOMMENDED | ----- | ----- | -----
+|<<./nfrs/NFR-01-0006.adoc#,NFR-01-0006 - Alert on Alarm Tripping>>| MANDATORY | ----- | ----- | -----
+|<<./nfrs/NFR-01-0007.adoc#,NFR-01-0007 - Periodic Backup and Recovery>>| HIGHLY_RECOMMENDED | ----- | ----- | -----
+|<<./nfrs/NFR-01-0008.adoc#,NFR-01-0008 - Automatic Backup Recovery>>| OPTIONAL | ----- | ----- | -----
+|<<./nfrs/NFR-01-0009.adoc#,NFR-01-0009 - Rolling Update Deployment>>| HIGHLY_RECOMMENDED | ----- | ----- | -----
+|<<./nfrs/NFR-02-0001.adoc#,NFR-02-0001 - Independent Code Repository>> | MANDATORY | ----- | ----- | -----
+|<<./nfrs/NFR-02-0002.adoc#,NFR-02-0002 - Orchestrated Container>> | MANDATORY | ----- | ----- | -----
+|<<./nfrs/NFR-02-0003.adoc#,NFR-02-0003 - Management Tasks Automation>> | HIGHLY_RECOMMENDED | ----- | ----- | -----
+|<<./nfrs/NFR-02-0004.adoc#,NFR-02-0004 - Management Tasks Isolation>> | OPTIONAL | ----- | ----- | -----
+|<<./nfrs/NFR-03-0001.adoc#,NFR-03-0001 - Logging Streaming>>| HIGHLY_RECOMMENDED | ----- | ----- | -----
+|<<./nfrs/NFR-03-0002.adoc#,NFR-03-0002 - Logging Configuration>> | OPTIONAL | ----- | ----- | -----
+|<<./nfrs/NFR-03-0002.adoc#,NFR-03-0002 - Asynchronous Logging>> | OPTIONAL | ----- | ----- | -----
+|<<./nfrs/NFR-03-0004.adoc#,NFR-03-0004 - Telemetry metrics>> | MANDATORY | ----- | ----- | -----
+|<<./nfrs/NFR-04-0001.adoc#,NFR-04-0001 - Deployment Automation>> | MANDATORY | ----- | ----- | -----
+|<<./nfrs/NFR-04-0002.adoc#,NFR-04-0002 - Versioning Automation>> | HIGHLY_RECOMMENDED | ----- | ----- | -----
+|<<./nfrs/NFR-04-0003.adoc#,NFR-04-0003 - Isolated Env Configuration>> | MANDATORY | ----- | ----- | -----
+|<<./nfrs/NFR-04-0004.adoc#,NFR-04-0004 - Non Hardcoded Env Configuration>> | MANDATORY | ----- | ----- | -----
+|<<./nfrs/NFR-04-0005.adoc#,NFR-04-0005 - Unified Management Across Env>> | HIGHLY_RECOMMENDED | ----- | ----- | -----
+|<<./nfrs/NFR-04-0006.adoc#,NFR-04-0006 - Dependency Versioning>> | MANDATORY | ----- | ----- | -----
+|<<./nfrs/NFR-04-0007.adoc#,NFR-04-0007 - Pre-Built Isolated Binaries>> | OPTIONAL | ----- | ----- | -----
+|<<./nfrs/NFR-04-0008.adoc#,NFR-04-0008 - Environment Versioning Alignment>> | OPTIONAL | ----- | ----- | -----
+|<<./nfrs/NFR-04-0009.adoc#,NFR-04-0009 - Independent Resources>> | HIGHLY_RECOMMENDED | ----- | ----- | -----
+|<<./nfrs/NFR-04-0010.adoc#,NFR-04-0010 - Addressable External Resources>> | HIGHLY_RECOMMENDED | ----- | ----- | -----
+|<<./nfrs/NFR-04-0011.adoc#,NFR-04-0011 - Public API Backwards Compatibility >> | HIGHLY_RECOMMENDED | ----- | ----- | -----
+|<<./nfrs/NFR-04-0012.adoc#,NFR-04-0012 - Secured Management Interface>> | OPTIONAL | ----- | ----- | -----
+|<<./nfrs/NFR-04-0013.adoc#,NFR-04-0013 - Service Port Association>> | OPTIONAL | ----- | ----- | -----
+|<<./nfrs/NFR-05-0001.adoc#,NFR-05-0001 - Repeatable Release>>| HIGHLY_RECOMMENDED | ----- | ----- | -----
+|<<./nfrs/NFR-05-0002.adoc#,NFR-05-0002 - Semantic Versioning Release>>| MANDATORY | ----- | ----- | -----
+|<<./nfrs/NFR-05-0003.adoc#,NFR-05-0003 - Immutable Release>> | MANDATORY | ----- | ----- | -----
+|<<./nfrs/NFR-04-0004.adoc#,NFR-05-0004 - FOSS Compatibility Scanning>> | MANDATORY | ----- | ----- | -----
+|<<./nfrs/NFR-05-0005.adoc#,NFR-05-0005 - Automated Capacity Testing>> | OPTIONAL | ----- | ----- | -----
+|<<./nfrs/NFR-05-0006.adoc#,NFR-05-0006 - Automated Failure Injection Testing>> | OPTIONAL | ----- | ----- | -----
+|<<./nfrs/NFR-06-0001.adoc#,NFR-06-0001 - Horizontal Scalability>> | MANDATORY | ----- | ----- | -----
+|<<./nfrs/NFR-06-0002.adoc#,NFR-06-0002 - External State Storage>>| MANDATORY | ----- | ----- | -----
+|<<./nfrs/NFR-06-0003.adoc#,NFR-06-0003 - No Manual Deployment Task>> | HIGHLY_RECOMMENDED | ----- | ----- | -----
+|<<./nfrs/NFR-06-0004.adoc#,NFR-06-0004 - Scalable Inter-Service Communication>>| HIGHLY_RECOMMENDED | ----- | ----- | -----
+|<<./nfrs/NFR-06-0005.adoc#,NFR-06-0005 - Stateless Application>>| HIGHLY_RECOMMENDED | ----- | ----- | -----
+|<<./nfrs/NFR-06-0006.adoc#,NFR-06-0006 - Microservice Elasticity>>| OPTIONAL | ----- | ----- | -----
+|<<./nfrs/NFR-07-0001.adoc#,NFR-07-0001 - Secrets Injection>>| MANDATORY | ----- | ----- | -----
+|<<./nfrs/NFR-07-0002.adoc#,NFR-07-0002 - Images ACL>>| MANDATORY | ----- | ----- | -----
+|<<./nfrs/NFR-07-0003.adoc#,NFR-07-0003 - Least Running Privilege Images>>| HIGHLY_RECOMMENDED| ----- | ----- | -----
+|<<./nfrs/NFR-07-0004.adoc#,NFR-07-0004 - Image Security Scanning>>| HIGHLY_RECOMMENDED| ----- | ----- | -----
+|<<./nfrs/NFR-07-0005.adoc#,NFR-07-0005 - Trusted Image Repository>> | OPTIONAL | ----- | ----- | -----
+|<<./nfrs/NFR-07-0006.adoc#,NFR-07-0006 - Stable Minimal Image Footprint>> | OPTIONAL | ----- | ----- | -----
+|<<./nfrs/NFR-07-0007.adoc#,NFR-07-0007 - Least Privilege Mng Task>> | HIGHLY_RECOMMENDED | ----- | ----- | -----
+|<<./nfrs/NFR-07-0008.adoc#,NFR-07-0008 - Periodic Image Update>> | HIGHLY_RECOMMENDED | ----- | ----- | -----
+|<<./nfrs/NFR-07-0010.adoc#,NFR-07-0010 - Encryption At-Rest>> | MANDATORY | ----- | ----- | -----
+|<<./nfrs/NFR-07-0011.adoc#,NFR-07-0011 - Application Level Encryption>> | HIGHLY_RECOMMENDED | ----- | ----- | -----
+|<<./nfrs/NFR-08-0001.adoc#,NFR-08-0001 - Active Control Plane Sessions>> | MANDATORY | ----- | ----- | -----
+|<<./nfrs/NFR-07-0011.adoc#,NFR-08-0003 - Active User Plane Sessions>> | MANDATORY | ----- | ----- | Only user plane
+|===
+
+
+== Container Links
+
+=== ServiceB link
+
+|===
+| Direction  | Interaction | Protocol
+| Inbound  | blocking/synchronous  | HTTP
+|===
+
+==== Tech-Requirements
+
+|===
+| Req  | Req Lvl | Applicability | Impl Status | EnforcedBy
+|<<./nfrs/NFR-07-0010.adoc#,NFR-07-0009 - Encryption In-Transit>> | MANDATORY | ----- | ----- | -----
+|<<./nfrs/NFR-07-0011.adoc#,NFR-08-0002 - TPS Throughput>> | MANDATORY | ----- | ----- | -----
+|<<./nfrs/NFR-07-0011.adoc#,NFR-08-0004 - Packet Per Second Throughput>> | MANDATORY | ----- | ----- | Only user plane
+|<<./nfrs/NFR-07-0011.adoc#,NFR-08-0005 - Aggregated Packet Per Second Throughput>> | MANDATORY | ----- | ----- | Only user plane
+|===

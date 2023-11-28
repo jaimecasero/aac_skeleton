@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.aac</groupId>
+    <artifactId>solution</artifactId>
+    <version>0.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <profiles>
+        <profile>
+            <id>reports</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <executions>
+                            <execution>
+                                <id>convert_nfrs</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>./generate_json_nfr.sh</executable>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>convert_containers</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>./generate_json_container.sh</executable>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <executions>
+                            <execution>
+                                <id>runMongo</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>docker</executable>
+                                    <commandlineArgs>run -idt -p 27017:27017 -v ${project.basedir}:/var/ng -v ${project.basedir}/mongo:/docker-entrypoint-initdb.d/:ro mongo </commandlineArgs>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.sahli.asciidoc.confluence.publisher</groupId>
+                <artifactId>asciidoc-confluence-publisher-maven-plugin</artifactId>
+                <version>0.21.0</version>
+                <executions>
+                    <execution>
+                        <id>publishDoc</id>
+                        <goals>
+                            <goal>publish</goal>
+                        </goals>
+                        <phase>test</phase>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctorj</artifactId>
+                        <version>2.5.10</version>
+                        <scope>compile</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctorj-diagram</artifactId>
+                        <version>2.2.9</version>
+                        <scope>compile</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctorj-chart</artifactId>
+                        <version>1.0.0</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <asciidocRootFolder>./</asciidocRootFolder>
+                    <sourceEncoding>UTF-8</sourceEncoding> <!-- default -->
+                    <rootConfluenceUrl>${env.CONFLUENCE_URL}</rootConfluenceUrl>
+                    <skipSslVerification>false</skipSslVerification>
+                    <maxRequestsPerSecond>5</maxRequestsPerSecond>
+                    <spaceKey>${env.CONFLUENCE_SPACE}</spaceKey>
+                    <ancestorId>${env.CONFLUENCE_ANCESTOR}</ancestorId>
+                    <username>${env.CONFLUENCE_USER}</username> <!-- or read from property -->
+                    <password>${env.CONFLUENCE_TOKEN}</password> <!-- or read from property -->
+                    <pageTitlePrefix xml:space="preserve">NG </pageTitlePrefix>
+                    <pageTitleSuffix xml:space="preserve"></pageTitleSuffix>
+                    <versionMessage>Version ${env.VERSION_TAG}</versionMessage>
+                    <notifyWatchers>false</notifyWatchers>
+                    <orphanRemovalStrategy>KEEP_ORPHANS</orphanRemovalStrategy>
+                    <convertOnly>${env.CONVERT_ONLY}</convertOnly>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
